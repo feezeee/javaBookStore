@@ -7,17 +7,18 @@ import org.springframework.stereotype.Component;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Optional;
 
 @Component
 public class BookRepository implements IBookRepository {
     public void create(BookEntity entity) throws SQLException {
-        ResultSet resultSet = DBConnection.statement.executeQuery(String.format("INSERT INTO book ('name', 'description') VALUES ('%s', '%s') ", entity.name, entity.description));
+        DBConnection.statement.executeUpdate(String.format("INSERT INTO book (name, description) VALUES (\"%s\", \"%s\")", entity.name, entity.description));
     }
     public void update(BookEntity entity) throws SQLException {
-        ResultSet resultSet = DBConnection.statement.executeQuery(String.format("UPDATE book set name = '%s', description = '%s' where id = %i", entity.name, entity.description, entity.id));
+        DBConnection.statement.executeUpdate(String.format("UPDATE book set name = \"%s\", description = \"%s\" where id = %s", entity.name, entity.description, entity.id));
     }
     public void delete(int id) throws SQLException {
-        ResultSet resultSet = DBConnection.statement.executeQuery(String.format("DELETE FROM book where id = %i", id));
+        DBConnection.statement.executeUpdate(String.format("DELETE FROM book where id = %s", id));
     }
     public ArrayList<BookEntity> getAll() throws SQLException {
         var resultSet = DBConnection.statement.executeQuery(String.format("SELECT * FROM book"));
