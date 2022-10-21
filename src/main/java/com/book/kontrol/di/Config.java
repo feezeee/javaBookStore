@@ -1,11 +1,17 @@
 package com.book.kontrol.di;
 
-import com.book.kontrol.bll.abstractions.repositories.IBookRepository;
-import com.book.kontrol.bll.abstractions.services.IBookService;
+import com.book.kontrol.bll.services.abstractions.BookService;
+import com.book.kontrol.bll.services.abstractions.CategoryService;
+import com.book.kontrol.dal.abstractions.BookRepository;
+import com.book.kontrol.dal.abstractions.CategoryRepository;
 import org.springframework.context.annotation.ComponentScan;
 
 @ComponentScan("ru.javalang.injection")
 public class Config {
-    public IBookRepository bookRepository;
-    public IBookService bookService;
+    public BookRepository bookRepository;
+    public BookService bookService;
+
+
+    public CategoryRepository categoryRepository;
+    public CategoryService categoryService;
 }

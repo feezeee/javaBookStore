@@ -2,25 +2,17 @@ package com.book.kontrol.api.request.book_controller;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.util.Optional;
+import java.util.Collection;
 
 public class PostBookRequest {
-    public String getName() {
-        return name;
-    }
     @JsonProperty("name")
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-    @JsonProperty("desc")
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
     public String name;
+    @JsonProperty("description")
     public String description;
+    @JsonProperty("price")
+    public double price;
+    @JsonProperty("count")
+    public int count;
+    @JsonProperty("categories")
+    public Collection<CategoryModelForPostBookRequest> categories;
 }

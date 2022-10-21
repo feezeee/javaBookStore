@@ -6,11 +6,10 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class DBConnection {
-    public static Statement statement;
+    public static Connection connection;
     static {
         try {
-            var connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/javabookstore", "root", "admin");
-            statement = connection.createStatement();
+            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/book_store", "root", "admin");
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

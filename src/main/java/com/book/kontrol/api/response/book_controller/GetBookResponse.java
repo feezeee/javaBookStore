@@ -2,32 +2,19 @@ package com.book.kontrol.api.response.book_controller;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.util.Optional;
+import java.util.List;
 
 public class GetBookResponse {
     @JsonProperty("id")
-    public int getId() {
-        return id;
-    }
-    public void setId(int id) {
-        this.id = id;
-    }
-    @JsonProperty("name")
-    public String getName() {
-        return name;
-    }
-    public void setName(String name) {
-        this.name = name;
-    }
-    @JsonProperty("desc")
-    public String getDescription() {
-        return description;
-    }
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
     public int id;
+    @JsonProperty("name")
     public String name;
+    @JsonProperty("description")
     public String description;
+    @JsonProperty("price")
+    public double price;
+    @JsonProperty("count")
+    public int count;
+    @JsonProperty("categories")
+    public List<CategoryModelForGetBookResponse> categories;
 }
