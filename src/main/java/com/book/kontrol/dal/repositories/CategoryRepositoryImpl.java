@@ -82,4 +82,23 @@ public class CategoryRepositoryImpl implements CategoryRepository {
         }
         return null;
     }
+
+    @Override
+    public ArrayList<CategoryEntity> getByBookId(int bookId) throws SQLException {
+        var query = "select cat.id, cat.name from category as cat\n" +
+                "left join book_has_category as bhc on cat.id = bhc.category_id\n" +
+                "where bhc.book_id = ?";
+        var prepareStatement = DBConnection.connection.prepareStatement(query);
+        prepareStatement.setInt(1, bookId);
+        var resultSet = prepareStatement.executeQuery();
+        var categories = new ArrayList<CategoryEntity>(0);
+        while (resultSet.next())
+        {
+            var category = new CategoryEntity();
+            category.id = resultSet.getInt(1);
+            category.name = resultSet.getString(2);
+            categories.add(category);
+        }
+        return categories;
+    }
 }

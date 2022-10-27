@@ -15,4 +15,5 @@ public interface CategoryRepository {
     void delete(int id) throws SQLException;
     ArrayList<CategoryEntity> getAll() throws SQLException;
     CategoryEntity getById(int id) throws SQLException;
+    ArrayList<CategoryEntity> getByBookId(int bookId) throws SQLException;
 }

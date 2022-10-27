@@ -10,7 +10,7 @@ public interface BookRepository {
     BookEntity create(BookEntity entity) throws SQLException;
     BookEntity update(BookEntity entity) throws SQLException;
     void delete(int id) throws SQLException;
-    ArrayList<BookEntity> getAll(boolean includeCategories) throws SQLException;
+    ArrayList<BookEntity> getAll() throws SQLException;
     BookEntity getById(int id) throws SQLException;
 
 }

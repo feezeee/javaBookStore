@@ -4,6 +4,7 @@ import com.book.kontrol.bll.models.input.book.CreateBookInput;
 import com.book.kontrol.bll.models.input.book.UpdateBookInput;
 import com.book.kontrol.bll.models.input.category.CreateCategoryInput;
 import com.book.kontrol.bll.models.input.category.UpdateCategoryInput;
+import com.book.kontrol.bll.models.output.book.CategoryModelForGetBookOutput;
 import com.book.kontrol.bll.models.output.book.GetBookOutput;
 import com.book.kontrol.bll.models.output.category.GetCategoryOutput;
 import com.book.kontrol.dal.entities.BookEntity;
@@ -89,5 +90,15 @@ public class Mapper {
         categoryEntity.name = updateCategoryInput.name;
 
         return categoryEntity;
+    }
+
+    public CategoryModelForGetBookOutput toCategoryModelForGetBookOutput(CategoryEntity categoryEntity){
+        if(categoryEntity == null){
+            return null;
+        }
+        var category = new CategoryModelForGetBookOutput();
+        category.id = categoryEntity.id;
+        category.name = categoryEntity.name;
+        return category;
     }
 }

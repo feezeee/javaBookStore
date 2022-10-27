@@ -4,14 +4,18 @@ import com.book.kontrol.api.request.book_controller.PostBookRequest;
 import com.book.kontrol.api.request.book_controller.PutBookRequest;
 import com.book.kontrol.api.request.category_controller.PostCategoryRequest;
 import com.book.kontrol.api.request.category_controller.PutCategoryRequest;
+import com.book.kontrol.api.response.book_controller.CategoryModelForGetBookResponse;
 import com.book.kontrol.api.response.book_controller.GetBookResponse;
 import com.book.kontrol.api.response.category_controller.GetCategoryResponse;
 import com.book.kontrol.bll.models.input.book.CreateBookInput;
 import com.book.kontrol.bll.models.input.book.UpdateBookInput;
 import com.book.kontrol.bll.models.input.category.CreateCategoryInput;
 import com.book.kontrol.bll.models.input.category.UpdateCategoryInput;
+import com.book.kontrol.bll.models.output.book.CategoryModelForGetBookOutput;
 import com.book.kontrol.bll.models.output.book.GetBookOutput;
 import com.book.kontrol.bll.models.output.category.GetCategoryOutput;
+
+import java.util.ArrayList;
 
 public class Mapper {
     public CreateBookInput toCreateBookInput(PostBookRequest postBookRequest){
@@ -26,7 +30,6 @@ public class Mapper {
         book.price = postBookRequest.price;
         return book;
     }
-
     public UpdateBookInput toUpdateBookInput(PutBookRequest putBookRequest){
         if(putBookRequest == null)
         {
@@ -51,6 +54,11 @@ public class Mapper {
         book.count = getBookOutput.count;
         book.description = getBookOutput.description;
         book.price = getBookOutput.price;
+        if(getBookOutput.categories != null)
+        {
+            book.categories = new ArrayList<CategoryModelForGetBookResponse>(0);
+            getBookOutput.categories.forEach(it -> book.categories.add(this.toCategoryModelForGetBookResponse(it)));
+        }
         return book;
     }
 
@@ -82,5 +90,16 @@ public class Mapper {
         getCategoryResponse.id = getCategoryOutput.id;
         getCategoryResponse.name = getCategoryOutput.name;
         return getCategoryResponse;
+    }
+
+    public CategoryModelForGetBookResponse toCategoryModelForGetBookResponse(CategoryModelForGetBookOutput categoryModelForGetBookOutput){
+        if(categoryModelForGetBookOutput == null)
+        {
+            return null;
+        }
+        var categoryResponse = new CategoryModelForGetBookResponse();
+        categoryResponse.id = categoryModelForGetBookOutput.id;
+        categoryResponse.name = categoryModelForGetBookOutput.name;
+        return categoryResponse;
     }
 }

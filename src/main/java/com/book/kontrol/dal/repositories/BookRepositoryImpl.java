@@ -52,12 +52,8 @@ public class BookRepositoryImpl implements BookRepository {
         prepareStatement.executeUpdate();
     }
     @Override
-    public ArrayList<BookEntity> getAll(boolean includeCategories) throws SQLException {
+    public ArrayList<BookEntity> getAll() throws SQLException {
         var query = "select * from book";
-        if(includeCategories == true)
-        {
-            query = "select b.id, b.name, b.description, b.price, b.count, cat.id, cat.name from book as b left join book_has_category as b_h_cat on b.id = b_h_cat.book_id left join category as cat on b_h_cat.category_id = cat.id where cat.id is not null";
-        }
         var prepareStatement = DBConnection.connection.prepareStatement(query);
         var resultSet = prepareStatement.executeQuery();
         var result = new ArrayList<BookEntity>(0);
@@ -69,18 +65,6 @@ public class BookRepositoryImpl implements BookRepository {
             book.description = resultSet.getString(3);
             book.price = resultSet.getDouble(4);
             book.count = resultSet.getInt(5);
-            if(includeCategories == true)
-            {
-                var bookHasCategory = new BookCategoryEntity();
-                bookHasCategory.categoryId = resultSet.getInt(6);
-                var category = new CategoryEntity();
-                category.id = bookHasCategory.categoryId;
-                category.name = resultSet.getString(7);
-                bookHasCategory.category = category;
-                bookHasCategory.bookId = book.id;
-                book.bookCategories = new ArrayList<>(0);
-                book.bookCategories.add(bookHasCategory);
-            }
             result.add(book);
         }
         return result;
